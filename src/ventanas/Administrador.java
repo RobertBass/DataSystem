@@ -5,16 +5,27 @@ import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import static ventanas.Login.label_NombreUsuario;
+import java.sql.*;
+import clases.Conexion;
+import javax.swing.WindowConstants;
 
 public class Administrador extends javax.swing.JFrame {
     
     String usuario = label_NombreUsuario.getText().toString();
+    String user;
+    public static int sesion_usuario;
 
     public Administrador() {
+        user = Login.user;
+        sesion_usuario = 1;
         initComponents();
-        setTitle("Administrador");
+        setSize(650,430);
+        setTitle("Administrador - Sesion de "+user);
         setLocationRelativeTo(null);
+        
         label_Usuario.setText("Bienvenido "+usuario);
+        
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         // Wallpaper
         ImageIcon wallpaper = new ImageIcon("src/images/wallpaperPrincipal.jpg");
