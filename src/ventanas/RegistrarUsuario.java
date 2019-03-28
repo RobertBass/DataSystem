@@ -1,21 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ventanas;
 
-/**
- *
- * @author Roberto Bravo
- */
-public class RegistrarUsuario extends javax.swing.JFrame {
+import clases.Conexion;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.sql.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.WindowConstants;
 
-    /**
-     * Creates new form RegistrarUsuario
-     */
+public class RegistrarUsuario extends javax.swing.JFrame {
+    
+    String user;
+
     public RegistrarUsuario() {
         initComponents();
+        user = Login.user;
+        
+        setTitle("Registrar nuevo usuario - Sesión de " + user);
+        setSize(630,350);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        
+        // Wallpaper
+        ImageIcon wallpaper = new ImageIcon("src/images/wallpaperPrincipal.jpg");
+        Icon icono = new ImageIcon(wallpaper.getImage().getScaledInstance(label_wallpaper.getWidth(), label_wallpaper.getHeight() , Image.SCALE_DEFAULT));
+        label_wallpaper.setIcon(icono);
+        this.repaint();
+        
+    }
+    
+    // Establecer icono de ventana
+    @Override
+    public Image getIconImage(){
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/icon.png"));
+        return retValue;
+        
     }
 
     /**
@@ -29,26 +51,23 @@ public class RegistrarUsuario extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txt_nombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txt_nombre1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txt_nombre2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txt_nombre3 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txt_nombre4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        txt_nombre = new javax.swing.JTextField();
         txt_mail = new javax.swing.JTextField();
         txt_telefono = new javax.swing.JTextField();
-        txt_nombre7 = new javax.swing.JTextField();
+        txt_usuario = new javax.swing.JTextField();
         txt_password = new javax.swing.JPasswordField();
         cmb_niveles = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        registrar = new javax.swing.JButton();
         jLabel_footer = new javax.swing.JLabel();
-        jLabel_wallpaper = new javax.swing.JLabel();
+        label_wallpaper = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -61,65 +80,37 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         jLabel2.setText("Nombre:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
-        txt_nombre.setBackground(new java.awt.Color(153, 153, 255));
-        txt_nombre.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        txt_nombre.setForeground(new java.awt.Color(255, 255, 255));
-        txt_nombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_nombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("em@il");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-
-        txt_nombre1.setBackground(new java.awt.Color(153, 153, 255));
-        txt_nombre1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        txt_nombre1.setForeground(new java.awt.Color(255, 255, 255));
-        txt_nombre1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_nombre1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(txt_nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Telefono");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
-        txt_nombre2.setBackground(new java.awt.Color(153, 153, 255));
-        txt_nombre2.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        txt_nombre2.setForeground(new java.awt.Color(255, 255, 255));
-        txt_nombre2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_nombre2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(txt_nombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Permisos de:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
-
-        txt_nombre3.setBackground(new java.awt.Color(153, 153, 255));
-        txt_nombre3.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        txt_nombre3.setForeground(new java.awt.Color(255, 255, 255));
-        txt_nombre3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_nombre3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(txt_nombre3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Username:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, -1, -1));
 
-        txt_nombre4.setBackground(new java.awt.Color(153, 153, 255));
-        txt_nombre4.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        txt_nombre4.setForeground(new java.awt.Color(255, 255, 255));
-        txt_nombre4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_nombre4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(txt_nombre4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
-
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Password:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, -1, -1));
+
+        txt_nombre.setBackground(new java.awt.Color(153, 153, 255));
+        txt_nombre.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        txt_nombre.setForeground(new java.awt.Color(255, 255, 255));
+        txt_nombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_nombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 210, -1));
 
         txt_mail.setBackground(new java.awt.Color(153, 153, 255));
         txt_mail.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -135,12 +126,12 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         txt_telefono.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         getContentPane().add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 210, -1));
 
-        txt_nombre7.setBackground(new java.awt.Color(153, 153, 255));
-        txt_nombre7.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        txt_nombre7.setForeground(new java.awt.Color(255, 255, 255));
-        txt_nombre7.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txt_nombre7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        getContentPane().add(txt_nombre7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 210, -1));
+        txt_usuario.setBackground(new java.awt.Color(153, 153, 255));
+        txt_usuario.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        txt_usuario.setForeground(new java.awt.Color(255, 255, 255));
+        txt_usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_usuario.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 210, -1));
 
         txt_password.setBackground(new java.awt.Color(153, 153, 255));
         txt_password.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -152,13 +143,13 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         cmb_niveles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Capturista", "Tecnico" }));
         getContentPane().add(cmb_niveles, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 120, 100));
+        registrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
+        getContentPane().add(registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 120, 100));
 
         jLabel_footer.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel_footer.setText("Creado por Robert - Bass ®");
         getContentPane().add(jLabel_footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, -1, -1));
-        getContentPane().add(jLabel_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 350));
+        getContentPane().add(label_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 350));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -200,7 +191,6 @@ public class RegistrarUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmb_niveles;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -209,15 +199,12 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel_footer;
-    private javax.swing.JLabel jLabel_wallpaper;
+    private javax.swing.JLabel label_wallpaper;
+    private javax.swing.JButton registrar;
     private javax.swing.JTextField txt_mail;
     private javax.swing.JTextField txt_nombre;
-    private javax.swing.JTextField txt_nombre1;
-    private javax.swing.JTextField txt_nombre2;
-    private javax.swing.JTextField txt_nombre3;
-    private javax.swing.JTextField txt_nombre4;
-    private javax.swing.JTextField txt_nombre7;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_telefono;
+    private javax.swing.JTextField txt_usuario;
     // End of variables declaration//GEN-END:variables
 }
