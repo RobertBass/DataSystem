@@ -93,7 +93,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
         jLabel1.setText("Creado por Robert - Bass ®");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 500, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 480, -1, -1));
         getContentPane().add(label_NombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 520, 120, 20));
         getContentPane().add(label_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 550));
 

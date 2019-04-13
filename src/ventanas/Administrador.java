@@ -67,6 +67,8 @@ public class Administrador extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
+        setMinimumSize(new java.awt.Dimension(650, 480));
+        setPreferredSize(new java.awt.Dimension(650, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         label_Usuario.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
@@ -83,6 +85,11 @@ public class Administrador extends javax.swing.JFrame {
         getContentPane().add(button_RegistrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 120, 100));
 
         button_GestionarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/informationuser.png"))); // NOI18N
+        button_GestionarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_GestionarUsuariosActionPerformed(evt);
+            }
+        });
         getContentPane().add(button_GestionarUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 120, 100));
 
         button_Creatividad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/creatividad.png"))); // NOI18N
@@ -124,7 +131,7 @@ public class Administrador extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel7.setText("Creado por Robert - Bass ®");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 400, -1, -1));
-        getContentPane().add(label_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 650, 420));
+        getContentPane().add(label_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -133,6 +140,11 @@ public class Administrador extends javax.swing.JFrame {
         RegistrarUsuario registrar = new RegistrarUsuario   ();
         registrar.setVisible(true);
     }//GEN-LAST:event_button_RegistrarUsuarioActionPerformed
+
+    private void button_GestionarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_GestionarUsuariosActionPerformed
+        GestionarUsuarios gestionar = new GestionarUsuarios();
+        gestionar.setVisible(true);
+    }//GEN-LAST:event_button_GestionarUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
