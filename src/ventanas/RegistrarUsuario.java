@@ -2,11 +2,14 @@
 package ventanas;
 
 import clases.Conexion;
+import java.awt.Color;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.*;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 public class RegistrarUsuario extends javax.swing.JFrame {
@@ -29,6 +32,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         Icon icono = new ImageIcon(wallpaper.getImage().getScaledInstance(label_wallpaper.getWidth(), label_wallpaper.getHeight() , Image.SCALE_DEFAULT));
         label_wallpaper.setIcon(icono);
         this.repaint();
+        
         
     }
     
@@ -68,6 +72,8 @@ public class RegistrarUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
+        setMinimumSize(new java.awt.Dimension(630, 380));
+        setPreferredSize(new java.awt.Dimension(630, 380));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -144,15 +150,116 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         getContentPane().add(cmb_niveles, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
         registrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
+        registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarActionPerformed(evt);
+            }
+        });
         getContentPane().add(registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 120, 100));
 
         jLabel_footer.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel_footer.setText("Creado por Robert - Bass ®");
-        getContentPane().add(jLabel_footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, -1, -1));
+        getContentPane().add(jLabel_footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, -1, -1));
         getContentPane().add(label_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 350));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
+        
+        int permisos_cmb, validacion = 0;
+        String nombre, mail, telefono, username, password, permisos_string = "";
+        
+        mail = txt_mail.getText().trim();
+        username = txt_usuario.getText().trim();
+        password = txt_password.getText().trim();
+        nombre = txt_nombre.getText().trim();
+        telefono = txt_telefono.getText().trim();
+        permisos_cmb = cmb_niveles.getSelectedIndex() + 1;
+        
+        if (mail.equals("")) {
+            txt_mail.setBackground(Color.red);
+            validacion++;
+        }
+         if (username.equals("")) {
+            txt_usuario.setBackground(Color.red);
+            validacion++;
+         }
+         if (password.equals("")) {
+            txt_password.setBackground(Color.red);
+            validacion++;
+        }
+         if (nombre.equals("")) {
+            txt_nombre.setBackground(Color.red);
+            validacion++;
+        }
+         if (telefono.equals("")) {
+            txt_telefono.setBackground(Color.red);
+            validacion++;
+        }
+         if (permisos_cmb == 1) {
+            permisos_string = "Administrador";
+        } else if (permisos_cmb == 2){
+            permisos_string = "Capturista";
+        } else if(permisos_cmb == 3){
+            permisos_string = "Tecnico";
+        }
+         
+         try {
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement("select username from usuarios where username = '" + username + "'");
+            ResultSet rs = pst.executeQuery();
+            
+             if (rs.next()) {
+                 txt_usuario.setBackground(Color.red);
+                 JOptionPane.showMessageDialog(null, "Nombre de usuario no disponible");
+                 cn.close();
+             } else {
+                 cn.close();
+                 
+                 if (validacion == 0) {
+                     try {
+                         Connection cn2 = Conexion.conectar();
+                         PreparedStatement pst2 = cn2.prepareStatement("insert into usuarios values (?,?,?,?,?,?,?,?,?)");
+                         pst2.setInt(1, 0);
+                         pst2.setString(2, nombre);
+                         pst2.setString(3, mail);
+                         pst2.setString(4, telefono);
+                         pst2.setString(5, username);
+                         pst2.setString(6, password);
+                         pst2.setString(7, permisos_string);
+                         pst2.setString(8, "Activo");
+                         pst2.setString(9, user);
+                         
+                         pst2.executeUpdate();
+                         
+                         cn2.close();
+                         
+                         Limpiar();
+                         
+                         txt_mail.setBackground(Color.green);
+                         txt_usuario.setBackground(Color.green);
+                         txt_password.setBackground(Color.green);
+                         txt_telefono.setBackground(Color.green);
+                         txt_nombre.setBackground(Color.green);
+                         
+                         JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+                         this.dispose();
+                         
+                     } catch (SQLException e) {
+                         System.err.println("Error al registrar Usuario" + e);
+                         JOptionPane.showMessageDialog(null, "Error, Contacte al Administrador");
+                     }
+                 } else {
+                     JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
+                 }
+             }
+            
+        } catch (SQLException e) {
+            System.err.println("Error en validar nombre de usuario. " + e);
+            JOptionPane.showMessageDialog(null, "Error al comparar usuario, Contacte al Administrador");
+        }
+    }//GEN-LAST:event_registrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,4 +314,14 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txt_telefono;
     private javax.swing.JTextField txt_usuario;
     // End of variables declaration//GEN-END:variables
+    
+    public void Limpiar(){
+        txt_mail.setText("");
+        txt_nombre.setText("");
+        txt_usuario.setText("");
+        txt_password.setText("");
+        txt_telefono.setText("");
+        cmb_niveles.setSelectedIndex(0);
+    }
+
 }
