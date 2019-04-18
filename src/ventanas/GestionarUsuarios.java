@@ -10,6 +10,7 @@ import javax.swing.WindowConstants;
 import static ventanas.Login.user;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,7 +25,8 @@ public class GestionarUsuarios extends javax.swing.JFrame {
         setTitle("Gestionar Usuarios - Sesión de " + user);
         setResizable(false);
         setLocationRelativeTo(null);
-        
+        setSize(630, 350);
+
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         // Wallpaper
@@ -33,6 +35,33 @@ public class GestionarUsuarios extends javax.swing.JFrame {
         jLabel_wallpaper.setIcon(icono);
         this.repaint();
 
+        try {
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement("select id_usuario, nombre_usuario, username, tipo_nivel, estatus from usuarios");
+            ResultSet rs = pst.executeQuery();
+
+            jTable_usuarios = new JTable(model);
+            jScrollPane1.setViewportView(jTable_usuarios);
+
+            model.addColumn("Id");
+            model.addColumn("Nombre");
+            model.addColumn("Username");
+            model.addColumn("Permisos");
+            model.addColumn("Estatus");
+
+            while (rs.next()) {
+                Object[] fila = new Object[5];
+                for (int i = 0; i < 5; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                model.addRow(fila);
+            }
+            cn.close();
+        } catch (SQLException e) {
+            System.err.println("Error al llenar la tabla" + e);
+            JOptionPane.showMessageDialog(null, "Error al mostrar informacion, ¡Contacte al Administrador!");
+        }
+        System.gc();
     }
 
     // Establecer icono de ventana

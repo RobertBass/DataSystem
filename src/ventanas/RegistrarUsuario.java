@@ -259,6 +259,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
             System.err.println("Error en validar nombre de usuario. " + e);
             JOptionPane.showMessageDialog(null, "Error al comparar usuario, Contacte al Administrador");
         }
+         System.gc();
     }//GEN-LAST:event_registrarActionPerformed
 
     /**
