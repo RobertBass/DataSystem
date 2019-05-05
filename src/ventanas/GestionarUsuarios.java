@@ -61,7 +61,23 @@ public class GestionarUsuarios extends javax.swing.JFrame {
             System.err.println("Error al llenar la tabla" + e);
             JOptionPane.showMessageDialog(null, "Error al mostrar informacion, ¡Contacte al Administrador!");
         }
+        
+        jTable_usuarios.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                int fila_point = jTable_usuarios.rowAtPoint(e.getPoint());
+                int columna_point = 2;
+                
+                if (fila_point > -1) {
+                    user_update = (String)model.getValueAt(fila_point, columna_point);
+                    InformacionUsuario info_usuario = new InformacionUsuario();
+                    info_usuario.setVisible(true);
+                }
+                
+            }
+        });
         System.gc();
+        
     }
 
     // Establecer icono de ventana
