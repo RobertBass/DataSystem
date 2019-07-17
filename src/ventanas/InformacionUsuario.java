@@ -1,6 +1,7 @@
 package ventanas;
 
 import clases.Conexion;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.Icon;
@@ -184,6 +185,11 @@ public class InformacionUsuario extends javax.swing.JFrame {
         jButton_actualizar.setForeground(new java.awt.Color(255, 255, 255));
         jButton_actualizar.setText("Actualizar Usuario");
         jButton_actualizar.setBorder(null);
+        jButton_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_actualizarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 210, 35));
 
         jButton_RestaurarPassword.setBackground(new java.awt.Color(153, 153, 255));
@@ -191,6 +197,11 @@ public class InformacionUsuario extends javax.swing.JFrame {
         jButton_RestaurarPassword.setForeground(new java.awt.Color(255, 255, 255));
         jButton_RestaurarPassword.setText("Restaurar Password");
         jButton_RestaurarPassword.setBorder(null);
+        jButton_RestaurarPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_RestaurarPasswordActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton_RestaurarPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 210, 35));
 
         jLabel_footer.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
@@ -200,6 +211,94 @@ public class InformacionUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_actualizarActionPerformed
+        int permisos_cmb, estatus_cmb, validacion = 0;
+        String nombre, mail, telefono, username, pass, permisos_string = "", estatus_string = "";
+
+        mail = txt_email.getText().trim();
+        username = txt_username.getText().trim();
+        nombre = txt_nombre.getText().trim();
+        telefono = txt_telefono.getText().trim();
+        permisos_cmb = cmb_niveles.getSelectedIndex() + 1;
+        estatus_cmb = cmb_estatus.getSelectedIndex() + 1;
+
+        if (mail.equals("")) {
+            txt_email.setBackground(Color.red);
+            validacion++;
+
+        }
+        if (nombre.equals("")) {
+            txt_nombre.setBackground(Color.red);
+            validacion++;
+
+        }
+        if (telefono.equals("")) {
+            txt_telefono.setBackground(Color.red);
+            validacion++;
+
+        }
+        if (validacion == 0) {
+            if (permisos_cmb == 1) {
+                permisos_string = "Administrador";
+
+            } else if (permisos_cmb == 2) {
+                permisos_string = "Capturista";
+
+            } else if (permisos_cmb == 3) {
+                permisos_string = "Tecnico";
+
+            }
+            if (estatus_cmb == 1) {
+                estatus_string = "Activo";
+
+            }
+            if (estatus_cmb == 2) {
+                estatus_string = "Inactivo";
+
+            }
+            
+            try {
+                Connection cn = Conexion.conectar();
+                PreparedStatement pst = cn.prepareStatement("select username from usuarios where username = '" + username + "' and not id_usuario = '" + ID + "'");
+                ResultSet rs = pst.executeQuery();
+                
+                if (rs.next()) {
+                    txt_username.setBackground(Color.red);
+                    JOptionPane.showMessageDialog(null, "Nombre de Usuario no disponible");
+                    cn.close();
+                } else {
+                    Connection cn2 = Conexion.conectar();
+                    PreparedStatement pst2 = cn2.prepareStatement("update usuarios set nombre_usuario = ?, email = ?, telefono = ?, username = ?, tipo_nivel = ?, estatus = ? "
+                            + "where id_usuario = '" + ID + "'");
+                    
+                    pst2.setString(1, nombre);
+                    pst2.setString(2, mail);
+                    pst2.setString(3, telefono);
+                    pst2.setString(4, username);
+                    pst2.setString(5, permisos_string);
+                    pst2.setString(6, estatus_string);
+                    
+                    pst2.executeUpdate();
+                    cn2.close();
+                    
+                    JOptionPane.showMessageDialog(null, "Modificación Correcta");
+                }
+                
+            } catch (SQLException e) {
+                System.err.println("Error al Actualizar" + e);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos");
+
+        }  
+    }//GEN-LAST:event_jButton_actualizarActionPerformed
+
+    private void jButton_RestaurarPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RestaurarPasswordActionPerformed
+        RestaurarPassword reset = new RestaurarPassword();
+        reset.setVisible(true);
+    }//GEN-LAST:event_jButton_RestaurarPasswordActionPerformed
 
     /**
      * @param args the command line arguments
