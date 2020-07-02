@@ -1,4 +1,3 @@
-
 package ventanas;
 
 import clases.Conexion;
@@ -21,7 +20,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         user = Login.user;
         
         setTitle("Registrar nuevo usuario - Sesión de " + user);
-        setSize(630,350);
+        setSize(630,430);
         setResizable(false);
         setLocationRelativeTo(null);
         
@@ -159,8 +158,8 @@ public class RegistrarUsuario extends javax.swing.JFrame {
 
         jLabel_footer.setFont(new java.awt.Font("Arial", 3, 18)); // NOI18N
         jLabel_footer.setText("Creado por Robert - Bass ®");
-        getContentPane().add(jLabel_footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, -1, -1));
-        getContentPane().add(label_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 350));
+        getContentPane().add(jLabel_footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, -1, -1));
+        getContentPane().add(label_wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

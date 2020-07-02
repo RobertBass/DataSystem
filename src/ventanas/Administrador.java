@@ -96,9 +96,19 @@ public class Administrador extends javax.swing.JFrame {
         getContentPane().add(button_Creatividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 120, 100));
 
         button_Capturista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/capturista.png"))); // NOI18N
+        button_Capturista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_CapturistaActionPerformed(evt);
+            }
+        });
         getContentPane().add(button_Capturista, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 120, 100));
 
         button_Tecnico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tecnico.png"))); // NOI18N
+        button_Tecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_TecnicoActionPerformed(evt);
+            }
+        });
         getContentPane().add(button_Tecnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 120, 100));
 
         button_Acerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/RB003b.png"))); // NOI18N
@@ -137,7 +147,7 @@ public class Administrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_RegistrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_RegistrarUsuarioActionPerformed
-        RegistrarUsuario registrar = new RegistrarUsuario   ();
+        RegistrarUsuario registrar = new RegistrarUsuario();
         registrar.setVisible(true);
     }//GEN-LAST:event_button_RegistrarUsuarioActionPerformed
 
@@ -145,6 +155,18 @@ public class Administrador extends javax.swing.JFrame {
         GestionarUsuarios gestionar = new GestionarUsuarios();
         gestionar.setVisible(true);
     }//GEN-LAST:event_button_GestionarUsuariosActionPerformed
+
+    private void button_CapturistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_CapturistaActionPerformed
+        Capturista capturista = new Capturista();
+        capturista.setVisible(true);
+    }//GEN-LAST:event_button_CapturistaActionPerformed
+
+    private void button_TecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_TecnicoActionPerformed
+        
+        Tecnico tecnico = new Tecnico();
+        tecnico.setVisible(true);
+        
+    }//GEN-LAST:event_button_TecnicoActionPerformed
 
     /**
      * @param args the command line arguments

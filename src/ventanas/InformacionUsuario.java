@@ -96,6 +96,7 @@ public class InformacionUsuario extends javax.swing.JFrame {
         jLabel_wallpaper = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel_titulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -282,11 +283,11 @@ public class InformacionUsuario extends javax.swing.JFrame {
                     pst2.executeUpdate();
                     cn2.close();
                     
-                    JOptionPane.showMessageDialog(null, "Modificación Correcta");
+                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
                 }
                 
             } catch (SQLException e) {
-                System.err.println("Error al Actualizar" + e);
+                System.err.println("Error al actualizar datos" + e);
             }
 
         } else {
